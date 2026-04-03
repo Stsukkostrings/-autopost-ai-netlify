@@ -1,4 +1,4 @@
-const API_BASE = `${window.location.protocol}//${window.location.hostname || "localhost"}:5000/api`;
+const API_BASE = "/api";
 const state = {
   token: localStorage.getItem("autopost_token") || "",
   user: JSON.parse(localStorage.getItem("autopost_user") || "null"),
