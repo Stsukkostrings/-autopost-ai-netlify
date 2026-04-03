@@ -4,8 +4,8 @@
   "private": true,
   "type": "commonjs",
   "scripts": {
-    "dev": "netlify dev",
-    "serve:functions": "netlify functions:serve",
+    "dev": "npx netlify dev",
+    "serve:functions": "npx netlify functions:serve",
     "check:api": "node --check netlify/functions/api.cjs",
     "check:scheduler": "node --check netlify/functions/process-due-posts.cjs"
   },
@@ -24,8 +24,5 @@
     "multer": "^1.4.5-lts.1",
     "node-cron": "^3.0.3",
     "serverless-http": "^3.2.0"
-  },
-  "devDependencies": {
-    "netlify-cli": "^21.7.2"
   }
 }
