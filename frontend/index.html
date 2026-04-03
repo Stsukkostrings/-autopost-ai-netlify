@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AutoPost AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="shell">
+    <aside class="hero-panel">
+      <p class="eyebrow">AutoPost AI</p>
+      <h1>Schedule and publish YouTube Shorts on autopilot.</h1>
+      <p class="hero-copy">
+        Upload a short video, connect your YouTube account, and let the scheduler publish it at the perfect time.
+      </p>
+      <div class="hero-card">
+        <span>Included in this MVP</span>
+        <ul>
+          <li>JWT login and protected dashboard</li>
+          <li>Video uploads to local storage</li>
+          <li>Minute-by-minute cron scheduler</li>
+          <li>YouTube OAuth and automatic posting</li>
+        </ul>
+      </div>
+    </aside>
+
+    <main class="app-panel">
+      <section id="authSection" class="card auth-grid">
+        <div>
+          <h2>Create account</h2>
+          <form id="registerForm">
+            <input name="name" type="text" placeholder="Full name" required>
+            <input name="email" type="email" placeholder="Email address" required>
+            <input name="password" type="password" placeholder="Password" minlength="6" required>
+            <button type="submit">Register</button>
+          </form>
+        </div>
+
+        <div>
+          <h2>Login</h2>
+          <form id="loginForm">
+            <input name="email" type="email" placeholder="Email address" required>
+            <input name="password" type="password" placeholder="Password" required>
+            <button type="submit">Login</button>
+          </form>
+        </div>
+      </section>
+
+      <section id="dashboardSection" class="hidden">
+        <header class="dashboard-header card">
+          <div>
+            <p class="eyebrow">Dashboard</p>
+            <h2 id="welcomeText">Welcome</h2>
+            <p id="youtubeStatusText">YouTube account not connected yet.</p>
+          </div>
+          <div class="dashboard-actions">
+            <button id="connectYoutubeBtn" class="secondary">Connect YouTube</button>
+            <button id="logoutBtn" class="ghost">Logout</button>
+          </div>
+        </header>
+
+        <section id="adminAnalyticsSection" class="card hidden">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Admin analytics</p>
+              <h3>Platform performance</h3>
+            </div>
+            <div class="admin-actions">
+              <div id="adminRefreshPill" class="pill">Live snapshot</div>
+              <button id="runSchedulerBtn" type="button" class="secondary action-button">Run scheduler now</button>
+            </div>
+          </div>
+
+          <div id="analyticsCards" class="analytics-grid"></div>
+
+          <div class="analytics-layout">
+            <div class="analytics-panel">
+              <h4>Posts created in the last 7 days</h4>
+              <div id="dailyPostsChart" class="mini-chart"></div>
+            </div>
+            <div class="analytics-panel">
+              <h4>Top hashtags</h4>
+              <div id="topHashtagsList" class="stack-list"></div>
+            </div>
+          </div>
+
+          <div class="analytics-panel">
+            <h4>Recent failed uploads</h4>
+            <div id="recentFailuresList" class="stack-list"></div>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Upload video</p>
+              <h3>Schedule a new Short</h3>
+            </div>
+            <div id="uploadProgress" class="pill hidden">Uploading...</div>
+          </div>
+
+          <form id="postForm" class="form-grid">
+            <input name="title" type="text" placeholder="Short title" maxlength="100" required>
+            <textarea name="description" placeholder="Description"></textarea>
+            <input name="hashtags" type="text" placeholder="Hashtags separated by commas">
+            <select name="privacyStatus">
+              <option value="private">Private</option>
+              <option value="public">Public</option>
+              <option value="unlisted">Unlisted</option>
+            </select>
+            <input name="scheduledAt" type="datetime-local" required>
+            <label class="checkbox">
+              <input name="useAICaption" type="checkbox">
+              <span>Generate AI caption when OpenAI key is configured</span>
+            </label>
+            <input name="video" type="file" accept="video/*" required>
+            <button type="submit">Save Scheduled Post</button>
+          </form>
+        </section>
+
+        <section class="card">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Scheduled content</p>
+              <h3>Your posts</h3>
+            </div>
+          </div>
+          <div id="postList" class="post-list"></div>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <div id="toast" class="toast hidden"></div>
+  <script src="./script.js"></script>
+</body>
+</html>

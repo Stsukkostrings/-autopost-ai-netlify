@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>OBS Overlay</title>
+
+<style>
+body {
+    margin: 0;
+    background: transparent;
+    overflow: hidden;
+}
+
+#overlay {
+    position: absolute;
+    bottom: 50px;
+    left: 50px;
+    right: 50px;
+
+    background: rgba(0,0,0,0.7);
+    color: white;
+
+    padding: 20px;
+    border-radius: 10px;
+
+    font-size: 28px;
+    font-family: Arial;
+
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.5s ease;
+}
+
+#overlay.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+</style>
+
+</head>
+
+<body>
+
+<div id="overlay">📖 Waiting for verse...</div>
+
+<script>
+
+// Listen for verse updates
+window.addEventListener("storage", (event) => {
+    if (event.key === "bibleVerse") {
+        showVerse(event.newValue);
+    }
+});
+
+// Show verse function
+function showVerse(text) {
+    const box = document.getElementById("overlay");
+
+    box.innerText = text;
+    box.classList.add("show");
+
+    // auto hide after 8 sec
+    setTimeout(() => {
+        box.classList.remove("show");
+    }, 8000);
+}
+
+// Load last verse if exists
+const saved = localStorage.getItem("bibleVerse");
+if (saved) showVerse(saved);
+
+</script>
+
+</body>
+</html>

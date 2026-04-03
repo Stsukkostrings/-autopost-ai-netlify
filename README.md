@@ -109,10 +109,17 @@ From [autopost-ai-netlify](C:\xampp\htdocs\ai-church-broadcast\autopost-ai-netli
 
 ```bash
 npm install
+<<<<<<< HEAD
 netlify login
 netlify init
 netlify deploy
 netlify deploy --prod
+=======
+npx netlify login
+npx netlify init
+npx netlify deploy
+npx netlify deploy --prod
+>>>>>>> 383709a (Remove invalid netlify-cli dependency)
 ```
 
 ## How to test locally before going live
@@ -130,7 +137,11 @@ npm install
 3. Start Netlify local dev:
 
 ```bash
+<<<<<<< HEAD
 netlify dev
+=======
+npx netlify dev
+>>>>>>> 383709a (Remove invalid netlify-cli dependency)
 ```
 
 4. Open the local URL Netlify prints, usually `http://localhost:8888`.
