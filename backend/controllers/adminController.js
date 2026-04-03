@@ -1,6 +1,5 @@
 const User = require("../models/User");
 const Post = require("../models/Post");
-const { processDuePosts } = require("../config/cron");
 
 async function getAnalytics(_req, res) {
   const [totalUsers, totalPosts, connectedChannels, statusCounts, recentUsers, topHashtags, recentFailures, dailyPosts] =
@@ -103,15 +102,6 @@ async function getAnalytics(_req, res) {
   });
 }
 
-async function runSchedulerNow(_req, res) {
-  const result = await processDuePosts();
-  res.json({
-    message: "Scheduler run complete",
-    ...result
-  });
-}
-
 module.exports = {
-  getAnalytics,
-  runSchedulerNow
+  getAnalytics
 };

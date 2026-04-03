@@ -1,4 +1,4 @@
-const API_BASE = "/api";
+const API_BASE = `${window.location.protocol}//${window.location.hostname || "localhost"}:5000/api`;
 const state = {
   token: localStorage.getItem("autopost_token") || "",
   user: JSON.parse(localStorage.getItem("autopost_user") || "null"),
@@ -22,7 +22,6 @@ const analyticsCards = document.getElementById("analyticsCards");
 const dailyPostsChart = document.getElementById("dailyPostsChart");
 const topHashtagsList = document.getElementById("topHashtagsList");
 const recentFailuresList = document.getElementById("recentFailuresList");
-const runSchedulerBtn = document.getElementById("runSchedulerBtn");
 
 function showToast(message) {
   toast.textContent = message;
@@ -367,20 +366,6 @@ connectYoutubeBtn.addEventListener("click", async () => {
   try {
     const { url } = await apiFetch("/youtube/auth-url");
     window.location.href = url;
-  } catch (error) {
-    showToast(error.message);
-  }
-});
-
-runSchedulerBtn?.addEventListener("click", async () => {
-  try {
-    const data = await apiFetch("/admin/run-due-posts", {
-      method: "POST",
-      body: JSON.stringify({})
-    });
-    showToast(`Scheduler complete: ${data.succeeded} posted, ${data.failed} failed`);
-    loadAdminAnalytics();
-    loadPosts();
   } catch (error) {
     showToast(error.message);
   }
