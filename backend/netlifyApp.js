@@ -26,14 +26,6 @@ async function ensureDatabase() {
 const app = express();
 
 app.set("trust proxy", 1);
-app.use(async (_req, _res, next) => {
-  try {
-    await ensureDatabase();
-    next();
-  } catch (error) {
-    next(error);
-  }
-});
 app.use(
   helmet({
     crossOriginResourcePolicy: false
@@ -65,8 +57,19 @@ app.get("/health", (_req, res) => {
     ok: true,
     service: "AutoPost AI API",
     runtime: "netlify-functions",
-    storageProvider: process.env.STORAGE_PROVIDER || "local"
+    storageProvider: process.env.STORAGE_PROVIDER || "local",
+    hasMongoUri: Boolean(process.env.MONGODB_URI),
+    hasJwtSecret: Boolean(process.env.JWT_SECRET)
   });
+});
+
+app.use(async (_req, _res, next) => {
+  try {
+    await ensureDatabase();
+    next();
+  } catch (error) {
+    next(error);
+  }
 });
 
 app.use("/auth", authRoutes);
